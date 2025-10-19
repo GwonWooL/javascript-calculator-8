@@ -56,13 +56,11 @@ class App {
         else {
             let startIndex = custom ? point+3 : 0
             let result = calculate(str, startIndex, divider)
-
             if(result.error) {
                 Console.print("ERROR")
             }
             else {
-                Console.print(str.join(""))
-                Console.print(result.sum)
+                Console.print('결과 : '+result.sum)
             }
         }
 
