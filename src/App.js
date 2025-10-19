@@ -2,70 +2,60 @@ import { Console } from "@woowacourse/mission-utils";
 
 class App {
     async run() {
-        const INPUT = await Console.readLineAsync("덧셈할 문자열을 입력해 주세요.\n"); 
-        let str = INPUT.trim().split("");
-        let divider = [',', ':']
 
-        let point = 0
-        let custom = false
+        //입력 문자열 받기
+        let input = await Console.readLineAsync("덧셈할 문자열을 입력해 주세요.\n"); 
+        const printString = input
 
-        for(let i = 2; i<str.length-2; i++) {
-            if(str[i+1]=='\\'&&str[i+2]=='n'&&str[i-2]=='/' && str[i-1]=='/' )  {
-                divider.push(str[i])
-                point = i
-                custom = true
-            }
-        }
-
-        function isblanked(str) {
-            if(str.length==0) {
-                return true
-            }
-            return false
-        }
-
-        function calculate(str, startIndex, divider) {
-            let sum = 0
-            let num = ""
-            let error = false
-            for(let i = startIndex; i<str.length; i++) {
-                let isExist = Number.isInteger(Number(str[i]))
-                if(isExist) {
-                    if(str[i]=='0') {
-                        error = true
-                        return {error: true}
-                    }
-                    num+=str[i]
-                    if(i==str.length-1||divider.includes(str[i+1])) {
-                        sum += Number(num)
-                        num = ""
-                    }
-                }
-                else {
-                    if(!divider.includes(str[i])) {
-                        error = true
-                        return {error: true}
-                    }
-                }
-            }
-            return {error: false, sum}
-        }
-
-        if(isblanked(str)) {
+        //빈 문자열 예외처리
+        if(input.length==0) {
             Console.print("결과 : 0")
+            return
         }
-        else {
-            let startIndex = custom ? point+3 : 0
-            let result = calculate(str, startIndex, divider)
-            if(result.error) {
-                Console.print("결과 : [ERROR]")
+
+        //허용된 구분자를 배열에 저장
+        const divider = [',', ':']
+
+        //커스텀 구분자 추가
+        const customStart = '//' 
+        const customEnd = '\\n' 
+        if(input.startsWith(customStart)) {
+            const endIndex = input.indexOf(customEnd)
+            if(endIndex==-1) {
+                Console.print("[ERROR]")
+                return
+            }
+            const customDivider = input.slice(customStart.length, endIndex)
+            if(customDivider.length!=1) {
+                Console.print("[ERROR]")
+                return
+            }
+            divider.push(customDivider)
+            input = input.slice(endIndex+customEnd.length)
+        }
+
+
+        const nums = input.split("")
+        let sum = 0
+        let str = ""
+        for(let i = 0; i<nums.length; i++) {
+            if(!isNaN(Number(nums[i])) && Number(nums[i]) >= 0) {
+                str+=nums[i]
+            }
+            else if(divider.includes(nums[i])) {
+                sum += Number(str)
+                str = ""
             }
             else {
-                Console.print(str.join(""))
-                Console.print('결과 : '+result.sum)
+                Console.print("[ERROR]")
+                return
             }
         }
-
+        if(str!="") {
+            sum += Number(str)
+        }
+        Console.print(printString)
+        Console.print('결과 : '+sum)
     }
 }
 
