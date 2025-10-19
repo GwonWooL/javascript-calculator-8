@@ -60,6 +60,7 @@ class App {
                 Console.print("ERROR")
             }
             else {
+                Console.print(str.join(""))
                 Console.print('결과 : '+result.sum)
             }
         }
