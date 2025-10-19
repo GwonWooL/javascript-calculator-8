@@ -31,6 +31,10 @@ class App {
             for(let i = startIndex; i<str.length; i++) {
                 let isExist = Number.isInteger(Number(str[i]))
                 if(isExist) {
+                    if(str[i]=='0') {
+                        error = true
+                        return {error: true}
+                    }
                     num+=str[i]
                     if(i==str.length-1||divider.includes(str[i+1])) {
                         sum += Number(num)
