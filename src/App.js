@@ -68,6 +68,6 @@ class App {
 
     }
 }
-new App().run();
 
+new App().run();
 export default App;
