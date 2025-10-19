@@ -4,7 +4,7 @@ class App {
     async run() {
         const INPUT = await Console.readLineAsync("덧셈할 문자열을 입력해 주세요.\n"); 
         let str = INPUT.trim().split("");
-        let divider = [',', ':', '-']
+        let divider = [',', ':']
 
         let point = 0
         let custom = false
@@ -31,9 +31,6 @@ class App {
             for(let i = startIndex; i<str.length; i++) {
                 let isExist = Number.isInteger(Number(str[i]))
                 if(isExist) {
-                    if(str[i-1]=='-') {
-                        num+='-'
-                    }
                     num+=str[i]
                     if(i==str.length-1||divider.includes(str[i+1])) {
                         sum += Number(num)
