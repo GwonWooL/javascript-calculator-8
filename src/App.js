@@ -57,7 +57,7 @@ class App {
             let startIndex = custom ? point+3 : 0
             let result = calculate(str, startIndex, divider)
             if(result.error) {
-                Console.print("결과 : ERROR")
+                Console.print("결과 : [ERROR]")
             }
             else {
                 Console.print(str.join(""))
