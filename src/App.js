@@ -51,13 +51,13 @@ class App {
         }
 
         if(isblanked(str)) {
-            Console.print("0")
+            Console.print("결과 : 0")
         }
         else {
             let startIndex = custom ? point+3 : 0
             let result = calculate(str, startIndex, divider)
             if(result.error) {
-                Console.print("ERROR")
+                Console.print("결과 : ERROR")
             }
             else {
                 Console.print(str.join(""))
