@@ -54,7 +54,6 @@ class App {
         if(str!="") {
             sum += Number(str)
         }
-        Console.print(printString)
         Console.print('결과 : '+sum)
     }
 }
